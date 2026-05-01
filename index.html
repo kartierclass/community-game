@@ -29,172 +29,213 @@
 body{background:var(--bg);color:var(--text);font-family:var(--body);min-height:100vh;overflow-x:hidden;font-size:14px}
 
 /* NAV */
-nav{background:rgba(11,26,20,0.97);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:56px;position:sticky;top:0;z-index:300;backdrop-filter:blur(8px)}
-.logo{font-family:var(--BC);font-weight:900;font-size:22px;letter-spacing:2px;color:var(--green);text-transform:uppercase;cursor:default}
-.nav-links{display:flex;gap:2px}
-.nlink{background:none;border:none;color:var(--muted);font-family:var(--BC);font-weight:700;font-size:12px;letter-spacing:3px;text-transform:uppercase;padding:8px 16px;cursor:pointer;transition:color .15s;border-bottom:2px solid transparent;height:56px}
+nav{background:rgba(11,26,20,0.97);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:60px;position:sticky;top:0;z-index:300;backdrop-filter:blur(12px)}
+.logo{font-family:var(--BC);font-weight:900;font-size:22px;letter-spacing:3px;color:var(--green);text-transform:uppercase;cursor:default;display:flex;align-items:center;gap:10px}
+.logo::before{content:'';display:inline-block;width:8px;height:8px;background:var(--green);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(0.7)}}
+.nav-links{display:flex;gap:0}
+.nlink{background:none;border:none;color:var(--muted);font-family:var(--BC);font-weight:700;font-size:11px;letter-spacing:3px;text-transform:uppercase;padding:8px 18px;cursor:pointer;transition:color .15s;border-bottom:2px solid transparent;height:60px}
 .nlink:hover{color:var(--text)}
-.nlink.on{color:var(--text);border-bottom-color:var(--green)}
+.nlink.on{color:var(--green);border-bottom-color:var(--green)}
 
 /* PAGES */
 .pg{display:none}.pg.on{display:block}
 
-/* SECTION HEADER */
-.sec-head{padding:40px 28px 28px}
-.sec-label{font-family:var(--BC);font-weight:700;font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
-.sec-title{font-family:var(--BC);font-weight:900;font-size:56px;line-height:.92;text-transform:uppercase;color:var(--text);letter-spacing:1px}
-.sec-title .green{color:var(--green)}
+/* HERO SECTION */
+.hero{display:grid;grid-template-columns:1fr 1fr;min-height:260px;border-bottom:1px solid var(--border)}
+.hero-left{padding:48px 40px;border-right:1px solid var(--border);display:flex;flex-direction:column;justify-content:space-between}
+.hero-eyebrow{font-family:var(--BC);font-weight:700;font-size:11px;letter-spacing:5px;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
+.hero-title{font-family:var(--BC);font-weight:900;font-size:72px;line-height:.88;text-transform:uppercase;letter-spacing:1px}
+.hero-title .green{color:var(--green)}
+.hero-title .stroke{-webkit-text-stroke:1px var(--muted2);color:transparent}
+.hero-right{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;border-top:none}
+.hero-stat{padding:28px 28px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden}
+.hero-stat:nth-child(2){border-right:none}
+.hero-stat:nth-child(3){border-bottom:none}
+.hero-stat:nth-child(4){border-right:none;border-bottom:none}
+.hero-stat-num{font-family:var(--BC);font-weight:900;font-size:52px;line-height:1;color:var(--green);letter-spacing:-2px}
+.hero-stat-lbl{font-family:var(--BC);font-weight:700;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.hero-stat-bg{position:absolute;top:-10px;right:-4px;font-size:80px;opacity:.04;user-select:none}
 
-/* FILTER TABS */
-.filter-row{display:flex;border-bottom:1px solid var(--border);padding:0 28px}
-.ftab{background:none;border:none;border-bottom:2px solid transparent;color:var(--muted);font-family:var(--BC);font-weight:700;font-size:12px;letter-spacing:3px;text-transform:uppercase;padding:14px 20px 12px;cursor:pointer;transition:all .15s;margin-bottom:-1px}
+/* FILTER BAR */
+.filter-bar{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);padding:0 32px}
+.filter-left{display:flex}
+.ftab{background:none;border:none;border-bottom:2px solid transparent;color:var(--muted);font-family:var(--BC);font-weight:700;font-size:11px;letter-spacing:3px;text-transform:uppercase;padding:16px 18px 14px;cursor:pointer;transition:all .15s;margin-bottom:-1px}
 .ftab:hover{color:var(--text)}
 .ftab.on{color:var(--green);border-bottom-color:var(--green)}
+.filter-right{font-family:var(--BC);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted2)}
+.count-badge{display:inline-block;background:var(--green-glow);border:1px solid rgba(0,255,65,0.2);color:var(--green);font-family:var(--BC);font-weight:700;font-size:10px;letter-spacing:1px;padding:2px 8px;margin-left:4px}
 
 /* CARDS GRID */
-.cards-wrap{padding:24px 28px 48px}
-.cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-left:1px solid var(--border);border-top:1px solid var(--border)}
-@media(max-width:900px){.cards-grid{grid-template-columns:repeat(2,1fr)}}
+.cards-wrap{padding:0 0 60px}
+.cards-grid{display:grid;grid-template-columns:repeat(3,1fr);border-left:1px solid var(--border);border-top:1px solid var(--border)}
+@media(max-width:960px){.cards-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.cards-grid{grid-template-columns:1fr}}
 
-.game-card{background:var(--card);border-right:1px solid var(--border);border-bottom:1px solid var(--border);cursor:pointer;transition:background .15s;display:flex;flex-direction:column}
+.game-card{background:var(--card);border-right:1px solid var(--border);border-bottom:1px solid var(--border);cursor:pointer;transition:background .15s;display:flex;flex-direction:column;position:relative;overflow:hidden}
+.game-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--green) 0%,transparent 100%);opacity:0;transition:opacity .2s}
 .game-card:hover{background:var(--card2)}
+.game-card:hover::before{opacity:1}
 
-.card-img-wrap{position:relative;height:160px;overflow:hidden;background:#0a1a10;flex-shrink:0}
-.card-img-wrap::after{content:'';position:absolute;bottom:0;left:0;width:60px;height:3px;background:var(--green)}
-.card-sport-label{position:absolute;top:12px;left:12px;font-family:var(--BC);font-weight:700;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--green);border:1px solid var(--green);padding:3px 8px;background:rgba(11,26,20,0.85)}
-.card-status-pill{position:absolute;top:12px;right:12px;font-family:var(--BC);font-weight:700;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:3px 8px}
+/* CARD BANNER */
+.card-banner{position:relative;height:52px;overflow:hidden;display:flex;align-items:center;padding:0 20px;gap:12px}
+.card-banner-sport{font-family:var(--BC);font-weight:900;font-size:48px;opacity:.06;position:absolute;right:16px;top:50%;transform:translateY(-50%);user-select:none;line-height:1}
+.sport-tag{font-family:var(--BC);font-weight:700;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--green);border:1px solid rgba(0,255,65,0.3);padding:3px 8px;flex-shrink:0}
+.status-pill{font-family:var(--BC);font-weight:700;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:3px 8px;flex-shrink:0}
 .pill-open{color:var(--green);border:1px solid var(--green);background:rgba(0,255,65,0.08)}
 .pill-full{color:var(--danger);border:1px solid var(--danger);background:rgba(255,64,64,0.08)}
 .pill-pending{color:var(--amber);border:1px solid var(--amber);background:rgba(255,170,0,0.08)}
-.card-icon-bg{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:52px;opacity:.15;user-select:none}
 
-.card-content{padding:16px 20px 20px;flex:1;display:flex;flex-direction:column}
-.card-meta-line{font-family:var(--BC);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
-.card-title{font-family:var(--BC);font-weight:800;font-size:20px;text-transform:uppercase;letter-spacing:.5px;line-height:1.1;margin-bottom:8px;color:var(--text)}
-.card-sub{font-size:12px;color:var(--muted);line-height:1.5;margin-bottom:14px;flex:1}
+.card-main{padding:0 20px 20px;flex:1;display:flex;flex-direction:column}
 
-.spots-wrap{margin-bottom:14px}
-.spots-labels{display:flex;justify-content:space-between;font-family:var(--BC);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
-.spots-track{height:2px;background:var(--border);width:100%}
-.spots-fill{height:100%;background:var(--green);transition:width .4s}
-.spots-fill.fill-p{background:var(--amber)}
-.spots-fill.fill-c{background:var(--ice)}
+.card-loc-time{display:flex;align-items:center;gap:0;margin-bottom:14px;border-top:1px solid var(--border);padding-top:14px}
+.card-loc{font-family:var(--BC);font-weight:700;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);flex:1}
+.card-time{font-family:var(--BC);font-weight:700;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
 
-.card-bottom{display:flex;align-items:center;justify-content:space-between}
-.card-price{font-family:var(--BC);font-weight:900;font-size:26px;color:var(--green);letter-spacing:-1px}
-.card-price span{font-size:12px;font-weight:700;letter-spacing:2px;color:var(--muted);margin-left:4px}
-.card-cta{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--green);color:var(--green);font-family:var(--BC);font-weight:700;font-size:11px;letter-spacing:2px;text-transform:uppercase;padding:7px 14px;background:none;cursor:pointer;transition:background .15s}
-.card-cta:hover{background:var(--green-glow2)}
-.card-cta:disabled{border-color:var(--muted2);color:var(--muted2);cursor:not-allowed;background:none}
+.card-title{font-family:var(--BC);font-weight:900;font-size:24px;text-transform:uppercase;letter-spacing:.5px;line-height:1.05;margin-bottom:8px;color:var(--text)}
+.card-host{font-size:12px;color:var(--muted);margin-bottom:16px}
 
-/* EMPTY STATE */
-.empty-state{padding:60px 28px;text-align:center}
-.empty-big{font-family:var(--BC);font-weight:900;font-size:40px;text-transform:uppercase;letter-spacing:2px;color:var(--border);margin-bottom:8px}
+/* SPOTS */
+.spots-row{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.spots-pips{display:flex;gap:3px;flex-wrap:wrap;flex:1}
+.spot-pip{width:8px;height:8px;background:var(--border);flex-shrink:0}
+.spot-pip.taken{background:var(--green)}
+.spot-pip.taken-pb{background:var(--amber)}
+.spot-pip.taken-bc{background:var(--ice)}
+.spots-count{font-family:var(--BC);font-weight:700;font-size:11px;letter-spacing:1px;color:var(--muted);white-space:nowrap}
+
+.card-foot{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border);padding-top:14px;margin-top:auto}
+.card-price{font-family:var(--BC);font-weight:900;font-size:28px;color:var(--green);letter-spacing:-1px;line-height:1}
+.card-price-sub{font-family:var(--BC);font-weight:700;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.card-cta{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--green);color:var(--green);background:none;font-family:var(--BC);font-weight:800;font-size:11px;letter-spacing:2px;text-transform:uppercase;padding:9px 16px;cursor:pointer;transition:all .15s}
+.card-cta:hover{background:var(--green);color:#000}
+.card-cta:disabled{border-color:var(--muted2);color:var(--muted2);cursor:not-allowed}
+.card-cta:disabled:hover{background:none;color:var(--muted2)}
+
+/* EMPTY */
+.empty-state{padding:80px 32px;text-align:center;border-top:1px solid var(--border)}
+.empty-big{font-family:var(--BC);font-weight:900;font-size:48px;text-transform:uppercase;letter-spacing:2px;color:var(--border);margin-bottom:8px}
 .empty-sub{font-family:var(--BC);font-weight:700;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--muted2)}
 
 /* HOST FORM */
-.host-wrap{padding:0 28px 48px}
+.host-hero{padding:48px 40px 36px;border-bottom:1px solid var(--border)}
+.host-wrap{padding:32px}
 .form-block{background:var(--card);border:1px solid var(--border)}
 .form-grid{display:grid;grid-template-columns:1fr 1fr}
 @media(max-width:600px){.form-grid{grid-template-columns:1fr}}
-.field{padding:18px 20px;border-right:1px solid var(--border);border-bottom:1px solid var(--border)}
+.field{padding:20px 24px;border-right:1px solid var(--border);border-bottom:1px solid var(--border)}
 .field.full{grid-column:1/-1;border-right:none}
 .field:nth-child(even):not(.full){border-right:none}
-.field label{display:block;font-family:var(--BC);font-weight:700;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
-.field input,.field select,.field textarea{width:100%;background:transparent;border:none;border-bottom:1px solid var(--border);color:var(--text);font-family:var(--BC);font-size:16px;font-weight:600;letter-spacing:.5px;padding:4px 0 8px;outline:none;transition:border-color .2s}
+.field label{display:block;font-family:var(--BC);font-weight:700;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.field input,.field select,.field textarea{width:100%;background:transparent;border:none;border-bottom:1px solid var(--border);color:var(--text);font-family:var(--BC);font-size:18px;font-weight:700;letter-spacing:.5px;padding:4px 0 10px;outline:none;transition:border-color .2s}
 .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--green)}
-.field select{-webkit-appearance:none;appearance:none;cursor:pointer}
+.field select{-webkit-appearance:none;cursor:pointer}
 .field select option{background:#0d1e17}
 .field textarea{resize:none;min-height:64px;font-size:14px;font-weight:400}
 .field input::placeholder,.field textarea::placeholder{color:var(--muted2)}
-.form-footer{padding:18px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.form-footer{padding:20px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;background:rgba(0,255,65,0.03);border-top:1px solid var(--border)}
 .form-note{font-family:var(--BC);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
 
 /* ADMIN */
-.admin-wrap{padding:0 28px 48px}
-.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);border-left:1px solid var(--border);border-top:1px solid var(--border);margin-bottom:28px}
+.admin-hero{padding:48px 40px 36px;border-bottom:1px solid var(--border)}
+.admin-wrap{padding:32px}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);border-left:1px solid var(--border);border-top:1px solid var(--border);margin-bottom:32px}
 @media(max-width:700px){.stats-grid{grid-template-columns:repeat(2,1fr)}}
-.stat-box{border-right:1px solid var(--border);border-bottom:1px solid var(--border);padding:20px 24px}
-.stat-num{font-family:var(--BC);font-weight:900;font-size:44px;color:var(--green);letter-spacing:-1px;line-height:1}
-.stat-lbl{font-family:var(--BC);font-weight:700;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.stat-box{border-right:1px solid var(--border);border-bottom:1px solid var(--border);padding:24px 28px;position:relative;overflow:hidden}
+.stat-box::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:2px;background:var(--green);opacity:.15}
+.stat-num{font-family:var(--BC);font-weight:900;font-size:48px;color:var(--green);letter-spacing:-2px;line-height:1}
+.stat-lbl{font-family:var(--BC);font-weight:700;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-top:6px}
 .stat-box.white .stat-num{color:var(--text)}
 .stat-box.amber .stat-num{color:var(--amber)}
+.stat-box.amber::after{background:var(--amber)}
 
-.section-divider{font-family:var(--BC);font-weight:700;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--muted);padding:14px 0 10px;border-top:1px solid var(--border)}
+.section-divider{font-family:var(--BC);font-weight:700;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--muted);padding:14px 0 12px;border-top:1px solid var(--border);display:flex;align-items:center;gap:12px}
+.section-divider::after{content:'';flex:1;height:1px;background:var(--border)}
 
 .atable-wrap{overflow-x:auto}
 .atable{width:100%;border-collapse:collapse;border:1px solid var(--border);min-width:700px}
-.atable th{font-family:var(--BC);font-weight:700;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);padding:10px 14px;text-align:left;border-bottom:1px solid var(--border);background:var(--surface)}
-.atable td{padding:12px 14px;font-size:13px;border-bottom:1px solid var(--border);vertical-align:middle}
+.atable th{font-family:var(--BC);font-weight:700;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);padding:12px 16px;text-align:left;border-bottom:1px solid var(--border);background:rgba(0,0,0,0.2)}
+.atable td{padding:14px 16px;font-size:13px;border-bottom:1px solid var(--border);vertical-align:middle}
 .atable tr:last-child td{border-bottom:none}
 .atable tr:hover td{background:rgba(0,255,65,0.02)}
-.t-name{font-family:var(--BC);font-weight:700;font-size:15px;text-transform:uppercase;letter-spacing:.5px}
-.t-host{font-size:11px;color:var(--muted);margin-top:1px}
+.t-name{font-family:var(--BC);font-weight:800;font-size:16px;text-transform:uppercase;letter-spacing:.5px}
+.t-host{font-size:11px;color:var(--muted);margin-top:2px}
 
 /* BUTTONS */
-.btn-green{display:inline-flex;align-items:center;gap:10px;background:var(--green);color:#000;font-family:var(--BC);font-weight:800;font-size:13px;letter-spacing:2px;text-transform:uppercase;padding:12px 24px;border:none;cursor:pointer;transition:background .15s}
-.btn-green:hover{background:#1aff55}
+.btn-green{display:inline-flex;align-items:center;gap:10px;background:var(--green);color:#000;font-family:var(--BC);font-weight:900;font-size:12px;letter-spacing:3px;text-transform:uppercase;padding:14px 28px;border:none;cursor:pointer;transition:all .15s;position:relative;overflow:hidden}
+.btn-green::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,0);transition:background .15s}
+.btn-green:hover::after{background:rgba(255,255,255,0.1)}
 .btn-green.full{width:100%;justify-content:center}
-.btn-outline{display:inline-flex;align-items:center;gap:8px;background:none;color:var(--green);border:1px solid var(--green);font-family:var(--BC);font-weight:700;font-size:11px;letter-spacing:2px;text-transform:uppercase;padding:8px 16px;cursor:pointer;transition:all .15s}
-.btn-outline:hover{background:var(--green-glow2)}
-.btn-outline.sm{font-size:10px;padding:5px 10px}
-.btn-danger{display:inline-flex;align-items:center;gap:6px;background:none;color:var(--danger);border:1px solid var(--danger);font-family:var(--BC);font-weight:700;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:6px 12px;cursor:pointer;transition:all .15s}
+.btn-outline{display:inline-flex;align-items:center;gap:8px;background:none;color:var(--green);border:1px solid var(--green);font-family:var(--BC);font-weight:700;font-size:11px;letter-spacing:2px;text-transform:uppercase;padding:9px 18px;cursor:pointer;transition:all .15s}
+.btn-outline:hover{background:var(--green);color:#000}
+.btn-outline.sm{font-size:10px;padding:6px 12px}
+.btn-danger{display:inline-flex;align-items:center;gap:6px;background:none;color:var(--danger);border:1px solid var(--danger);font-family:var(--BC);font-weight:700;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:7px 14px;cursor:pointer;transition:all .15s}
 .btn-danger:hover{background:rgba(255,64,64,0.1)}
-.btn-approve{display:inline-flex;align-items:center;gap:6px;background:var(--green-glow2);color:var(--green);border:1px solid rgba(0,255,65,0.3);font-family:var(--BC);font-weight:700;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:6px 12px;cursor:pointer;transition:all .15s}
-.btn-approve:hover{background:rgba(0,255,65,0.2)}
-.btn-pay{background:var(--green-glow);border:1px solid rgba(0,255,65,0.25);color:var(--green);font-family:var(--BC);font-weight:700;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;cursor:pointer;transition:all .15s}
+.btn-approve{display:inline-flex;align-items:center;gap:6px;background:var(--green);color:#000;border:none;font-family:var(--BC);font-weight:800;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:7px 14px;cursor:pointer;transition:opacity .15s}
+.btn-approve:hover{opacity:.85}
+.btn-pay{background:var(--green-glow);border:1px solid rgba(0,255,65,0.25);color:var(--green);font-family:var(--BC);font-weight:700;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;padding:5px 12px;cursor:pointer;transition:all .15s}
 .btn-pay:hover{background:var(--green-glow2)}
 
 /* MODAL */
-.overlay{display:none;position:fixed;inset:0;background:rgba(5,14,10,0.93);z-index:500;align-items:flex-end;justify-content:center}
+.overlay{display:none;position:fixed;inset:0;background:rgba(5,14,10,0.95);z-index:500;align-items:flex-end;justify-content:center}
 .overlay.on{display:flex}
-.modal{background:var(--surface);border-top:1px solid var(--border);width:100%;max-width:660px;max-height:88vh;overflow-y:auto;animation:slideUp .3s cubic-bezier(.22,1,.36,1)}
-@keyframes slideUp{from{transform:translateY(32px);opacity:0}to{transform:translateY(0);opacity:1}}
-.modal-top{display:flex;align-items:flex-start;justify-content:space-between;padding:20px 24px 16px;position:sticky;top:0;background:var(--surface);border-bottom:1px solid var(--border);z-index:10}
-.modal-eyebrow{font-family:var(--BC);font-weight:700;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--green);margin-bottom:4px}
-.modal-title{font-family:var(--BC);font-weight:900;font-size:24px;text-transform:uppercase;letter-spacing:1px;line-height:1.1}
-.modal-close{background:none;border:1px solid var(--border);color:var(--muted);width:32px;height:32px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s;margin-top:2px}
-.modal-close:hover{border-color:var(--muted);color:var(--text)}
-.modal-body{padding:20px 24px 28px}
+.modal{background:var(--surface);border-top:2px solid var(--green);width:100%;max-width:680px;max-height:88vh;overflow-y:auto;animation:slideUp .28s cubic-bezier(.22,1,.36,1)}
+@keyframes slideUp{from{transform:translateY(40px);opacity:0}to{transform:translateY(0);opacity:1}}
+.modal-top{display:flex;align-items:flex-start;justify-content:space-between;padding:24px 28px 18px;position:sticky;top:0;background:var(--surface);border-bottom:1px solid var(--border);z-index:10}
+.modal-eyebrow{font-family:var(--BC);font-weight:700;font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--green);margin-bottom:6px}
+.modal-title{font-family:var(--BC);font-weight:900;font-size:26px;text-transform:uppercase;letter-spacing:1px;line-height:1.05}
+.modal-close{background:none;border:1px solid var(--border);color:var(--muted);width:34px;height:34px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s;margin-top:2px}
+.modal-close:hover{border-color:var(--green);color:var(--green)}
+.modal-body{padding:24px 28px 32px}
 
-.facts-grid{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--border);border-right:none;margin-bottom:16px}
-.fact{border-right:1px solid var(--border);padding:12px 14px}
-.fact-lbl{font-family:var(--BC);font-weight:700;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
-.fact-val{font-family:var(--BC);font-weight:700;font-size:14px;letter-spacing:.5px}
+.facts-grid{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--border);border-right:none;margin-bottom:18px}
+.fact{border-right:1px solid var(--border);padding:14px 16px}
+.fact-lbl{font-family:var(--BC);font-weight:700;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.fact-val{font-family:var(--BC);font-weight:800;font-size:15px;letter-spacing:.5px;text-transform:uppercase}
 
-.fee-block{border:1px solid rgba(0,255,65,0.2);background:var(--green-glow);padding:16px 20px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between}
-.fee-big{font-family:var(--BC);font-weight:900;font-size:48px;color:var(--green);letter-spacing:-1px;line-height:1}
-.fee-lbl{font-family:var(--BC);font-weight:700;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--green);margin-bottom:4px}
-.fee-note{font-size:12px;color:var(--muted);margin-top:4px}
+.fee-block{border:1px solid rgba(0,255,65,0.2);background:var(--green-glow);padding:20px 24px;margin-bottom:18px;display:flex;align-items:center;justify-content:space-between}
+.fee-big{font-family:var(--BC);font-weight:900;font-size:56px;color:var(--green);letter-spacing:-2px;line-height:1}
+.fee-lbl{font-family:var(--BC);font-weight:700;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--green);margin-bottom:6px}
+.fee-note{font-size:12px;color:var(--muted);margin-top:6px}
 
-.input-wrap{margin-bottom:12px}
-.input-wrap label{display:block;font-family:var(--BC);font-weight:700;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
-.input-wrap input{width:100%;background:var(--card);border:1px solid var(--border);color:var(--text);font-family:var(--BC);font-size:15px;font-weight:600;padding:10px 14px;outline:none;transition:border .18s}
+.input-wrap{margin-bottom:14px}
+.input-wrap label{display:block;font-family:var(--BC);font-weight:700;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.input-wrap input{width:100%;background:var(--card);border:1px solid var(--border);color:var(--text);font-family:var(--BC);font-size:16px;font-weight:700;padding:12px 16px;outline:none;transition:border .18s}
 .input-wrap input:focus{border-color:var(--green)}
 .input-wrap input::placeholder{color:var(--muted2)}
 
-.players-list{border:1px solid var(--border);border-bottom:none;margin-top:10px;max-height:260px;overflow-y:auto}
+.players-list{border:1px solid var(--border);border-bottom:none;margin-top:12px;max-height:280px;overflow-y:auto}
 .players-list::-webkit-scrollbar{width:3px}
 .players-list::-webkit-scrollbar-thumb{background:var(--border)}
-.player-row{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--border)}
-.p-init{width:30px;height:30px;border:1px solid rgba(0,255,65,0.25);display:flex;align-items:center;justify-content:center;font-family:var(--BC);font-size:12px;font-weight:800;color:var(--green);flex-shrink:0;margin-right:10px}
-.p-name{font-family:var(--BC);font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:.5px}
-.p-phone{font-size:11px;color:var(--muted)}
-.badge-paid{font-family:var(--BC);font-weight:700;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:3px 8px;color:var(--green);border:1px solid rgba(0,255,65,.25);background:var(--green-glow)}
-.badge-unpaid{font-family:var(--BC);font-weight:700;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:3px 8px;color:var(--danger);border:1px solid rgba(255,64,64,.25);background:rgba(255,64,64,0.05)}
+.player-row{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--border)}
+.p-init{width:32px;height:32px;background:rgba(0,255,65,0.08);border:1px solid rgba(0,255,65,0.2);display:flex;align-items:center;justify-content:center;font-family:var(--BC);font-size:12px;font-weight:900;color:var(--green);flex-shrink:0;margin-right:12px}
+.p-name{font-family:var(--BC);font-weight:800;font-size:15px;text-transform:uppercase;letter-spacing:.5px}
+.p-phone{font-size:11px;color:var(--muted);margin-top:1px}
+.badge-paid{font-family:var(--BC);font-weight:700;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;color:var(--green);border:1px solid rgba(0,255,65,.25);background:var(--green-glow)}
+.badge-unpaid{font-family:var(--BC);font-weight:700;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;color:var(--danger);border:1px solid rgba(255,64,64,.25);background:rgba(255,64,64,0.05)}
 
-.pending-notice{border:1px solid rgba(255,170,0,0.25);background:rgba(255,170,0,0.06);padding:10px 14px;margin-bottom:14px;font-family:var(--BC);font-weight:700;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--amber)}
-.actions-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;align-items:center}
+.pending-notice{border:1px solid rgba(255,170,0,0.3);background:rgba(255,170,0,0.08);padding:12px 16px;margin-bottom:16px;font-family:var(--BC);font-weight:700;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--amber);border-left:3px solid var(--amber)}
+.actions-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;align-items:center}
 .modal-section-lbl{font-family:var(--BC);font-weight:700;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:0}
 
 /* TOAST */
-.toast{position:fixed;bottom:20px;right:20px;background:var(--card);border:1px solid var(--green);border-left:3px solid var(--green);padding:12px 18px;font-family:var(--BC);font-size:13px;font-weight:700;letter-spacing:.5px;z-index:9999;opacity:0;pointer-events:none;transform:translateY(8px);transition:all .25s;text-transform:uppercase;color:var(--text)}
+.toast{position:fixed;bottom:24px;right:24px;background:var(--green);color:#000;border:none;padding:12px 20px;font-family:var(--BC);font-size:12px;font-weight:900;letter-spacing:2px;z-index:9999;opacity:0;pointer-events:none;transform:translateY(12px);transition:all .25s;text-transform:uppercase}
 .toast.on{opacity:1;transform:translateY(0)}
 
-/* ASK US STICKY BUTTON */
-.ask-btn{position:fixed;bottom:20px;left:20px;background:var(--green);color:#000;font-family:var(--BC);font-weight:800;font-size:12px;letter-spacing:2px;text-transform:uppercase;padding:12px 20px;border:none;cursor:pointer;z-index:400;display:flex;align-items:center;gap:8px;transition:background .15s}
-.ask-btn:hover{background:#1aff55}
+/* HOST CTA BUTTON */
+.host-fab{position:fixed;bottom:24px;left:24px;background:var(--green);color:#000;font-family:var(--BC);font-weight:900;font-size:11px;letter-spacing:2px;text-transform:uppercase;padding:14px 22px;border:none;cursor:pointer;z-index:400;display:flex;align-items:center;gap:8px;transition:all .15s}
+.host-fab:hover{background:#1aff55}
+
+/* HERO RESPONSIVE */
+@media(max-width:700px){
+  .hero{grid-template-columns:1fr}
+  .hero-left{padding:32px 24px;border-right:none;border-bottom:1px solid var(--border)}
+  .hero-title{font-size:52px}
+  .hero-right{grid-template-columns:1fr 1fr}
+  .host-hero,.admin-hero{padding:32px 24px}
+  .host-wrap,.admin-wrap{padding:16px}
+  .cards-wrap{padding-bottom:80px}
+}
 </style>
 </head>
 <body>
@@ -202,24 +243,39 @@ nav{background:rgba(11,26,20,0.97);border-bottom:1px solid var(--border);display
 <nav>
   <div class="logo">Match-Box</div>
   <div class="nav-links">
-    <button class="nlink on" onclick="go('browse',this)">Browse Games</button>
-    <button class="nlink" onclick="go('host',this)">Host a Game</button>
+    <button class="nlink on" onclick="go('browse',this)">Browse</button>
+    <button class="nlink" onclick="go('host',this)">Host</button>
     <button class="nlink" onclick="go('admin',this)">Admin</button>
   </div>
 </nav>
 
-<!-- ═══════════════ BROWSE ═══════════════ -->
+<!-- ═══ BROWSE ═══ -->
 <div class="pg on" id="pg-browse">
-  <div class="sec-head">
-    <div class="sec-label">Community Games</div>
-    <div class="sec-title">FIND YOUR<br><span class="green">GAME</span></div>
+  <div class="hero">
+    <div class="hero-left">
+      <div>
+        <div class="hero-eyebrow">Community Games · Mysore</div>
+        <div class="hero-title">FIND<br><span class="green">YOUR</span><br><span class="stroke">GAME</span></div>
+      </div>
+    </div>
+    <div class="hero-right" id="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-bg">⚽</div><div class="hero-stat-num" id="hs-open">—</div><div class="hero-stat-lbl">Open Games</div></div>
+      <div class="hero-stat"><div class="hero-stat-bg">👥</div><div class="hero-stat-num" id="hs-players">—</div><div class="hero-stat-lbl">Players Joined</div></div>
+      <div class="hero-stat"><div class="hero-stat-bg">📍</div><div class="hero-stat-num">3</div><div class="hero-stat-lbl">Locations</div></div>
+      <div class="hero-stat"><div class="hero-stat-bg">🏆</div><div class="hero-stat-num" id="hs-sports">3</div><div class="hero-stat-lbl">Sports</div></div>
+    </div>
   </div>
-  <div class="filter-row">
-    <button class="ftab on" onclick="setFilter('All',this)">All Sports</button>
-    <button class="ftab" onclick="setFilter('Football',this)">Football</button>
-    <button class="ftab" onclick="setFilter('Pickleball',this)">Pickleball</button>
-    <button class="ftab" onclick="setFilter('Box Cricket',this)">Box Cricket</button>
+
+  <div class="filter-bar">
+    <div class="filter-left">
+      <button class="ftab on" onclick="setFilter('All',this)">All <span class="count-badge" id="cnt-all">0</span></button>
+      <button class="ftab" onclick="setFilter('Football',this)">Football <span class="count-badge" id="cnt-Football">0</span></button>
+      <button class="ftab" onclick="setFilter('Pickleball',this)">Pickleball <span class="count-badge" id="cnt-Pickleball">0</span></button>
+      <button class="ftab" onclick="setFilter('Box Cricket',this)">Box Cricket <span class="count-badge" id="cnt-Box Cricket">0</span></button>
+    </div>
+    <div class="filter-right" id="filter-right-count"></div>
   </div>
+
   <div class="cards-wrap">
     <div class="cards-grid" id="cards-grid"></div>
     <div id="empty-state" class="empty-state" style="display:none">
@@ -229,11 +285,11 @@ nav{background:rgba(11,26,20,0.97);border-bottom:1px solid var(--border);display
   </div>
 </div>
 
-<!-- ═══════════════ HOST ═══════════════ -->
+<!-- ═══ HOST ═══ -->
 <div class="pg" id="pg-host">
-  <div class="sec-head">
-    <div class="sec-label">Community Games</div>
-    <div class="sec-title">HOST A<br><span class="green">GAME</span></div>
+  <div class="host-hero">
+    <div class="hero-eyebrow">Community Games</div>
+    <div class="hero-title" style="font-family:var(--BC);font-weight:900;font-size:64px;line-height:.9;text-transform:uppercase;letter-spacing:1px">HOST A<br><span style="color:var(--green)">GAME</span></div>
   </div>
   <div class="host-wrap">
     <div class="form-block">
@@ -291,11 +347,11 @@ nav{background:rgba(11,26,20,0.97);border-bottom:1px solid var(--border);display
   </div>
 </div>
 
-<!-- ═══════════════ ADMIN ═══════════════ -->
+<!-- ═══ ADMIN ═══ -->
 <div class="pg" id="pg-admin">
-  <div class="sec-head">
-    <div class="sec-label">Dashboard</div>
-    <div class="sec-title">ADMIN<br><span class="green">CONTROL</span></div>
+  <div class="admin-hero">
+    <div class="hero-eyebrow">Dashboard</div>
+    <div class="hero-title" style="font-family:var(--BC);font-weight:900;font-size:64px;line-height:.9;text-transform:uppercase;letter-spacing:1px">ADMIN<br><span style="color:var(--green)">CONTROL</span></div>
   </div>
   <div class="admin-wrap">
     <div class="stats-grid" id="stats-grid"></div>
@@ -304,13 +360,7 @@ nav{background:rgba(11,26,20,0.97);border-bottom:1px solid var(--border);display
       <table class="atable">
         <thead>
           <tr>
-            <th>Game</th>
-            <th>Sport</th>
-            <th>Date / Time</th>
-            <th>Location</th>
-            <th>Players</th>
-            <th>Status</th>
-            <th></th>
+            <th>Game</th><th>Sport</th><th>Date / Time</th><th>Location</th><th>Players</th><th>Status</th><th></th>
           </tr>
         </thead>
         <tbody id="atable-body"></tbody>
@@ -319,7 +369,7 @@ nav{background:rgba(11,26,20,0.97);border-bottom:1px solid var(--border);display
   </div>
 </div>
 
-<!-- ═══════════════ JOIN MODAL ═══════════════ -->
+<!-- ═══ JOIN MODAL ═══ -->
 <div class="overlay" id="ov-join" onclick="bgClose(event,'ov-join')">
   <div class="modal">
     <div class="modal-top">
@@ -337,9 +387,7 @@ nav{background:rgba(11,26,20,0.97);border-bottom:1px solid var(--border);display
           <div class="fee-big" id="jm-fee">₹0</div>
           <div class="fee-note">Pay at the venue · Admin marks you paid</div>
         </div>
-        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="rgba(0,255,65,0.3)" stroke-width="1.5">
-          <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
-        </svg>
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="rgba(0,255,65,0.3)" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
       </div>
       <div class="input-wrap">
         <label>Your Name</label>
@@ -354,7 +402,7 @@ nav{background:rgba(11,26,20,0.97);border-bottom:1px solid var(--border);display
   </div>
 </div>
 
-<!-- ═══════════════ ADMIN MANAGE MODAL ═══════════════ -->
+<!-- ═══ ADMIN MANAGE MODAL ═══ -->
 <div class="overlay" id="ov-admin" onclick="bgClose(event,'ov-admin')">
   <div class="modal">
     <div class="modal-top">
@@ -368,295 +416,194 @@ nav{background:rgba(11,26,20,0.97);border-bottom:1px solid var(--border);display
   </div>
 </div>
 
-<button class="ask-btn" onclick="go('host', document.querySelector('.nlink:nth-child(2)'))">⚡ Host a Game</button>
+<button class="host-fab" onclick="go('host', document.querySelector('.nlink:nth-child(2)'))">⚡ Host a Game</button>
 <div class="toast" id="toast"></div>
 
 <script>
 let games = [
-  {
-    id: 1, title: 'Friday 5-a-Side Showdown', sport: 'Football', loc: 'Hebbal',
-    date: '2026-05-08', time: '18:00', max: 10, fee: 200, host: 'Karan M.',
-    notes: 'Intermediate level. Turf shoes preferred.', status: 'open',
-    players: [
-      {n:'Raju S.',ph:'9876543210',paid:true},
-      {n:'Vikram T.',ph:'9845001234',paid:true},
-      {n:'Anil P.',ph:'9731122334',paid:false}
-    ]
-  },
-  {
-    id: 2, title: 'Doubles Round Robin', sport: 'Pickleball', loc: 'Vijayanagar',
-    date: '2026-05-10', time: '07:30', max: 8, fee: 150, host: 'Priya R.',
-    notes: 'All levels welcome. Paddles provided.', status: 'open',
-    players: [{n:'Suresh K.',ph:'9900112233',paid:true}]
-  },
-  {
-    id: 3, title: 'Evening Blast', sport: 'Box Cricket', loc: 'Yadavgiri',
-    date: '2026-05-11', time: '16:00', max: 14, fee: 180, host: 'Deepak N.',
-    notes: 'Bring your own bat if you have one.', status: 'open',
-    players: [
-      {n:'Manoj L.',ph:'9988776655',paid:true},
-      {n:'Syed A.',ph:'9123456789',paid:true},
-      {n:'Ravi B.',ph:'9900000001',paid:false}
-    ]
-  },
-  {
-    id: 4, title: 'Sunday Tournament', sport: 'Football', loc: 'Vijayanagar',
-    date: '2026-05-12', time: '08:00', max: 20, fee: 250, host: 'Match-Box Staff',
-    notes: 'Teams of 5. Tournament format.', status: 'pending', players: []
-  }
+  {id:1,title:'Friday 5-a-Side Showdown',sport:'Football',loc:'Hebbal',date:'2026-05-08',time:'18:00',max:10,fee:200,host:'Karan M.',notes:'Intermediate level. Turf shoes preferred.',status:'open',players:[{n:'Raju S.',ph:'9876543210',paid:true},{n:'Vikram T.',ph:'9845001234',paid:true},{n:'Anil P.',ph:'9731122334',paid:false}]},
+  {id:2,title:'Doubles Round Robin',sport:'Pickleball',loc:'Vijayanagar',date:'2026-05-10',time:'07:30',max:8,fee:150,host:'Priya R.',notes:'All levels welcome. Paddles provided.',status:'open',players:[{n:'Suresh K.',ph:'9900112233',paid:true}]},
+  {id:3,title:'Evening Blast',sport:'Box Cricket',loc:'Yadavgiri',date:'2026-05-11',time:'16:00',max:14,fee:180,host:'Deepak N.',notes:'Bring your own bat if you have one.',status:'open',players:[{n:'Manoj L.',ph:'9988776655',paid:true},{n:'Syed A.',ph:'9123456789',paid:true},{n:'Ravi B.',ph:'9900000001',paid:false}]},
+  {id:4,title:'Sunday Tournament',sport:'Football',loc:'Vijayanagar',date:'2026-05-12',time:'08:00',max:20,fee:250,host:'Match-Box Staff',notes:'Teams of 5. Tournament format.',status:'pending',players:[]}
 ];
-let nid = 5, selId = null, activeF = 'All';
+let nid=5,selId=null,activeF='All';
+const MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const DAYS=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 
-const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-const DAYS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+function fmt(d,t){const dt=new Date(d+'T'+t);const h=dt.getHours(),m=dt.getMinutes();const ampm=h>=12?'PM':'AM';const hr=h%12||12;return `${DAYS[dt.getDay()]} ${MONTHS[dt.getMonth()]} ${dt.getDate()} · ${hr}:${String(m).padStart(2,'0')} ${ampm}`}
+function pipClass(s){return s==='Pickleball'?' taken-pb':s==='Box Cricket'?' taken-bc':' taken'}
+function sportIcon(s){return s==='Football'?'⚽':s==='Pickleball'?'🏓':'🏏'}
+function initials(n){return n.split(' ').map(w=>w[0]||'').join('').toUpperCase().slice(0,2)}
 
-function fmt(d, t) {
-  const dt = new Date(d + 'T' + t);
-  const h = dt.getHours(), m = dt.getMinutes();
-  const ampm = h >= 12 ? 'PM' : 'AM';
-  const hr = h % 12 || 12;
-  return `${DAYS[dt.getDay()]} ${MONTHS[dt.getMonth()]} ${dt.getDate()} · ${hr}:${String(m).padStart(2,'0')} ${ampm}`;
+function updateHeroStats(){
+  const open=games.filter(g=>g.status==='open');
+  const totalP=open.reduce((a,g)=>a+g.players.length,0);
+  document.getElementById('hs-open').textContent=open.length;
+  document.getElementById('hs-players').textContent=totalP;
 }
 
-function fillClass(s) {
-  return s === 'Pickleball' ? ' fill-p' : s === 'Box Cricket' ? ' fill-c' : '';
+function updateCounts(){
+  const openGames=games.filter(g=>g.status!=='pending');
+  document.getElementById('cnt-all').textContent=openGames.length;
+  ['Football','Pickleball','Box Cricket'].forEach(s=>{
+    const el=document.getElementById('cnt-'+s);
+    if(el) el.textContent=openGames.filter(g=>g.sport===s).length;
+  });
 }
 
-function sportIcon(s) {
-  return s === 'Football' ? '⚽' : s === 'Pickleball' ? '🏓' : '🏏';
-}
-
-function initials(n) {
-  return n.split(' ').map(w => w[0] || '').join('').toUpperCase().slice(0, 2);
-}
-
-function renderCards() {
-  const grid = document.getElementById('cards-grid');
-  const empty = document.getElementById('empty-state');
-  const visible = games.filter(g => g.status !== 'pending' && (activeF === 'All' || g.sport === activeF));
-  if (!visible.length) {
-    grid.style.display = 'none';
-    empty.style.display = 'block';
-    return;
-  }
-  grid.style.display = 'grid';
-  empty.style.display = 'none';
-  grid.innerHTML = visible.map(g => {
-    const full = g.players.length >= g.max;
-    const pct = Math.round(g.players.length / g.max * 100);
-    const fc = fillClass(g.sport);
+function renderCards(){
+  const grid=document.getElementById('cards-grid');
+  const empty=document.getElementById('empty-state');
+  const visible=games.filter(g=>g.status!=='pending'&&(activeF==='All'||g.sport===activeF));
+  updateCounts();updateHeroStats();
+  const rc=document.getElementById('filter-right-count');
+  rc.textContent=visible.length+' game'+(visible.length!==1?'s':'');
+  if(!visible.length){grid.style.display='none';empty.style.display='block';return}
+  grid.style.display='grid';empty.style.display='none';
+  grid.innerHTML=visible.map(g=>{
+    const full=g.players.length>=g.max;
+    const pc=pipClass(g.sport);
+    const pips=Array.from({length:g.max},(_,i)=>`<div class="spot-pip${i<g.players.length?pc:''}"></div>`).join('');
     return `<div class="game-card" onclick="openJoin(${g.id})">
-      <div class="card-img-wrap">
-        <div class="card-icon-bg">${sportIcon(g.sport)}</div>
-        <span class="card-sport-label">${g.sport}</span>
-        <span class="card-status-pill ${full ? 'pill-full' : 'pill-open'}">${full ? 'FULL' : 'OPEN'}</span>
+      <div class="card-banner">
+        <div class="card-banner-sport">${sportIcon(g.sport)}</div>
+        <span class="sport-tag">${g.sport}</span>
+        <span class="status-pill ${full?'pill-full':'pill-open'}">${full?'FULL':'OPEN'}</span>
       </div>
-      <div class="card-content">
-        <div class="card-meta-line">${g.loc} · ${fmt(g.date, g.time)}</div>
-        <div class="card-title">${g.title}</div>
-        <div class="card-sub">Host: ${g.host}${g.notes ? ' · ' + g.notes.slice(0, 50) + (g.notes.length > 50 ? '…' : '') : ''}</div>
-        <div class="spots-wrap">
-          <div class="spots-labels">
-            <span>${g.players.length} / ${g.max} players</span>
-            <span>${g.max - g.players.length} spots left</span>
-          </div>
-          <div class="spots-track">
-            <div class="spots-fill${fc}" style="width:${pct}%"></div>
-          </div>
+      <div class="card-main">
+        <div class="card-loc-time">
+          <div class="card-loc">${g.loc}</div>
+          <div class="card-time">${fmt(g.date,g.time)}</div>
         </div>
-        <div class="card-bottom">
-          <div class="card-price">₹${g.fee}<span>/ PLAYER</span></div>
-          <button class="card-cta" ${full ? 'disabled' : ''} onclick="event.stopPropagation();openJoin(${g.id})">${full ? 'FULL' : 'JOIN →'}</button>
+        <div class="card-title">${g.title}</div>
+        <div class="card-host">Host: ${g.host}${g.notes?' · '+g.notes.slice(0,48)+(g.notes.length>48?'…':''):''}</div>
+        <div class="spots-row">
+          <div class="spots-pips">${pips}</div>
+          <div class="spots-count">${g.players.length}/${g.max}</div>
+        </div>
+        <div class="card-foot">
+          <div>
+            <div class="card-price">₹${g.fee}</div>
+            <div class="card-price-sub">Per Player</div>
+          </div>
+          <button class="card-cta" ${full?'disabled':''} onclick="event.stopPropagation();openJoin(${g.id})">${full?'FULL':'JOIN →'}</button>
         </div>
       </div>
     </div>`;
   }).join('');
 }
 
-function setFilter(f, el) {
-  activeF = f;
-  document.querySelectorAll('.ftab').forEach(b => b.classList.remove('on'));
-  el.classList.add('on');
-  renderCards();
-}
+function setFilter(f,el){activeF=f;document.querySelectorAll('.ftab').forEach(b=>b.classList.remove('on'));el.classList.add('on');renderCards()}
+function go(pg,el){document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));document.getElementById('pg-'+pg).classList.add('on');document.querySelectorAll('.nlink').forEach(n=>n.classList.remove('on'));if(el)el.classList.add('on');if(pg==='admin')renderAdmin();if(pg==='browse')renderCards()}
 
-function go(pg, el) {
-  document.querySelectorAll('.pg').forEach(p => p.classList.remove('on'));
-  document.getElementById('pg-' + pg).classList.add('on');
-  document.querySelectorAll('.nlink').forEach(n => n.classList.remove('on'));
-  if (el) el.classList.add('on');
-  if (pg === 'admin') renderAdmin();
-  if (pg === 'browse') renderCards();
-}
-
-function openJoin(id) {
-  const g = games.find(x => x.id === id);
-  if (!g || g.players.length >= g.max) return;
-  selId = id;
-  document.getElementById('jm-title').textContent = g.title.toUpperCase();
-  document.getElementById('jm-fee').textContent = '₹' + g.fee;
-  document.getElementById('jm-facts').innerHTML =
+function openJoin(id){
+  const g=games.find(x=>x.id===id);
+  if(!g||g.players.length>=g.max)return;
+  selId=id;
+  document.getElementById('jm-title').textContent=g.title.toUpperCase();
+  document.getElementById('jm-fee').textContent='₹'+g.fee;
+  document.getElementById('jm-facts').innerHTML=
     `<div class="fact"><div class="fact-lbl">Sport</div><div class="fact-val">${g.sport}</div></div>
      <div class="fact"><div class="fact-lbl">Location</div><div class="fact-val">${g.loc}</div></div>
-     <div class="fact"><div class="fact-lbl">Date & Time</div><div class="fact-val" style="font-size:12px">${fmt(g.date, g.time)}</div></div>`;
-  document.getElementById('j-name').value = '';
-  document.getElementById('j-phone').value = '';
+     <div class="fact"><div class="fact-lbl">Date & Time</div><div class="fact-val" style="font-size:12px">${fmt(g.date,g.time)}</div></div>`;
+  document.getElementById('j-name').value='';
+  document.getElementById('j-phone').value='';
   document.getElementById('ov-join').classList.add('on');
 }
 
-function confirmJoin() {
-  const name = document.getElementById('j-name').value.trim();
-  const phone = document.getElementById('j-phone').value.trim();
-  if (!name || !phone) { toast('Enter your name and phone number'); return; }
-  const g = games.find(x => x.id === selId);
-  if (!g) return;
-  g.players.push({n: name, ph: phone, paid: false});
-  closeOv('ov-join');
-  renderCards();
+function confirmJoin(){
+  const name=document.getElementById('j-name').value.trim();
+  const phone=document.getElementById('j-phone').value.trim();
+  if(!name||!phone){toast('Enter your name and phone number');return}
+  const g=games.find(x=>x.id===selId);
+  if(!g)return;
+  g.players.push({n:name,ph:phone,paid:false});
+  closeOv('ov-join');renderCards();
   toast(`You're in! Pay ₹${g.fee} at the venue ⚡`);
 }
 
-function submitGame() {
-  const title = document.getElementById('f-title').value.trim();
-  const date  = document.getElementById('f-date').value;
-  const time  = document.getElementById('f-time').value;
-  const max   = parseInt(document.getElementById('f-max').value);
-  const fee   = parseInt(document.getElementById('f-fee').value);
-  const host  = document.getElementById('f-host').value.trim();
-  if (!title || !date || !time || !max || !fee || !host) { toast('Please fill in all required fields'); return; }
-  games.push({
-    id: nid++,
-    title,
-    sport: document.getElementById('f-sport').value,
-    loc: document.getElementById('f-loc').value,
-    date, time, max, fee, host,
-    notes: document.getElementById('f-notes').value.trim(),
-    status: 'pending',
-    players: []
-  });
-  ['f-title','f-date','f-time','f-max','f-fee','f-host','f-notes'].forEach(id => { document.getElementById(id).value = ''; });
+function submitGame(){
+  const title=document.getElementById('f-title').value.trim();
+  const date=document.getElementById('f-date').value;
+  const time=document.getElementById('f-time').value;
+  const max=parseInt(document.getElementById('f-max').value);
+  const fee=parseInt(document.getElementById('f-fee').value);
+  const host=document.getElementById('f-host').value.trim();
+  if(!title||!date||!time||!max||!fee||!host){toast('Please fill in all required fields');return}
+  games.push({id:nid++,title,sport:document.getElementById('f-sport').value,loc:document.getElementById('f-loc').value,date,time,max,fee,host,notes:document.getElementById('f-notes').value.trim(),status:'pending',players:[]});
+  ['f-title','f-date','f-time','f-max','f-fee','f-host','f-notes'].forEach(id=>{document.getElementById(id).value=''});
   toast('Submitted! Admin will review and approve ⚡');
 }
 
-function renderAdmin() {
-  const total  = games.length;
-  const pending = games.filter(g => g.status === 'pending').length;
-  const totalP = games.reduce((a, g) => a + g.players.length, 0);
-  const paidP  = games.reduce((a, g) => a + g.players.filter(p => p.paid).length, 0);
-
-  document.getElementById('stats-grid').innerHTML =
+function renderAdmin(){
+  const total=games.length;
+  const pending=games.filter(g=>g.status==='pending').length;
+  const totalP=games.reduce((a,g)=>a+g.players.length,0);
+  const paidP=games.reduce((a,g)=>a+g.players.filter(p=>p.paid).length,0);
+  document.getElementById('stats-grid').innerHTML=
     `<div class="stat-box"><div class="stat-num">${total}</div><div class="stat-lbl">Total Games</div></div>
      <div class="stat-box amber"><div class="stat-num">${pending}</div><div class="stat-lbl">Pending Approval</div></div>
      <div class="stat-box white"><div class="stat-num">${totalP}</div><div class="stat-lbl">Total Players</div></div>
      <div class="stat-box"><div class="stat-num">${paidP}</div><div class="stat-lbl">Confirmed Paid</div></div>`;
-
-  document.getElementById('atable-body').innerHTML = games.map(g => {
-    const paid = g.players.filter(p => p.paid).length;
-    const sc = g.status === 'open' ? 'pill-open' : g.status === 'pending' ? 'pill-pending' : 'pill-full';
+  document.getElementById('atable-body').innerHTML=games.map(g=>{
+    const paid=g.players.filter(p=>p.paid).length;
+    const sc=g.status==='open'?'pill-open':g.status==='pending'?'pill-pending':'pill-full';
     return `<tr>
-      <td>
-        <div class="t-name">${g.title}</div>
-        <div class="t-host">Host: ${g.host}</div>
-      </td>
-      <td><span class="card-sport-label" style="position:static;font-size:10px">${g.sport}</span></td>
-      <td style="color:var(--muted);font-family:var(--BC);font-size:12px;letter-spacing:.5px">${fmt(g.date, g.time)}</td>
+      <td><div class="t-name">${g.title}</div><div class="t-host">Host: ${g.host}</div></td>
+      <td><span class="sport-tag" style="position:static">${g.sport}</span></td>
+      <td style="color:var(--muted);font-family:var(--BC);font-size:12px;letter-spacing:.5px">${fmt(g.date,g.time)}</td>
       <td style="color:var(--muted);font-family:var(--BC);font-size:13px">${g.loc}</td>
-      <td>
-        <span style="font-family:var(--BC);font-weight:700;font-size:14px">${g.players.length}/${g.max}</span><br>
-        <span style="font-size:11px;color:var(--green);font-family:var(--BC)">${paid} paid</span>
-      </td>
-      <td><span class="card-status-pill ${sc}" style="position:static">${g.status.toUpperCase()}</span></td>
+      <td><span style="font-family:var(--BC);font-weight:800;font-size:15px">${g.players.length}/${g.max}</span><br><span style="font-size:11px;color:var(--green);font-family:var(--BC)">${paid} paid</span></td>
+      <td><span class="status-pill ${sc}" style="position:static">${g.status.toUpperCase()}</span></td>
       <td><button class="btn-outline sm" onclick="openAdmin(${g.id})">Manage →</button></td>
     </tr>`;
   }).join('');
 }
 
-function openAdmin(id) {
-  const g = games.find(x => x.id === id);
-  if (!g) return;
-  document.getElementById('am-title').textContent = g.title.toUpperCase();
-  const isPending = g.status === 'pending';
-  const paid = g.players.filter(p => p.paid).length;
-  document.getElementById('am-body').innerHTML = `
-    ${isPending ? `<div class="pending-notice">⚠ Pending Approval — Review below and approve or reject</div>` : ''}
-    <div class="facts-grid" style="margin-bottom:14px">
+function openAdmin(id){
+  const g=games.find(x=>x.id===id);if(!g)return;
+  document.getElementById('am-title').textContent=g.title.toUpperCase();
+  const isPending=g.status==='pending';
+  const paid=g.players.filter(p=>p.paid).length;
+  document.getElementById('am-body').innerHTML=`
+    ${isPending?`<div class="pending-notice">⚠ Pending Approval — Review and approve or reject</div>`:''}
+    <div class="facts-grid" style="margin-bottom:16px">
       <div class="fact"><div class="fact-lbl">Sport</div><div class="fact-val">${g.sport}</div></div>
       <div class="fact"><div class="fact-lbl">Location</div><div class="fact-val">${g.loc}</div></div>
       <div class="fact"><div class="fact-lbl">Entry Fee</div><div class="fact-val" style="color:var(--green)">₹${g.fee}</div></div>
     </div>
     <div class="actions-row">
       ${isPending
-        ? `<button class="btn-approve" onclick="approveGame(${id})">→ Approve & Publish</button>
-           <button class="btn-danger" onclick="rejectGame(${id})">✕ Reject</button>`
-        : `<button class="btn-danger" onclick="deleteGame(${id})">✕ Delete Game</button>`
-      }
+        ?`<button class="btn-approve" onclick="approveGame(${id})">→ Approve & Publish</button><button class="btn-danger" onclick="rejectGame(${id})">✕ Reject</button>`
+        :`<button class="btn-danger" onclick="deleteGame(${id})">✕ Delete Game</button>`}
     </div>
     <div class="modal-section-lbl">Players — ${g.players.length}/${g.max} &nbsp;·&nbsp; ${paid} paid</div>
     <div class="players-list">
       ${g.players.length
-        ? g.players.map((p, i) => `
-          <div class="player-row">
-            <div style="display:flex;align-items:center">
-              <div class="p-init">${initials(p.n)}</div>
-              <div>
-                <div class="p-name">${p.n}</div>
-                <div class="p-phone">${p.ph}</div>
-              </div>
-            </div>
-            <div style="display:flex;align-items:center;gap:8px">
-              <span class="${p.paid ? 'badge-paid' : 'badge-unpaid'}">${p.paid ? 'PAID' : 'UNPAID'}</span>
-              ${!p.paid ? `<button class="btn-pay" onclick="markPaid(${id},${i})">Mark Paid</button>` : ''}
-            </div>
-          </div>`).join('')
-        : `<div style="padding:20px 14px;font-family:var(--BC);font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--muted2)">No players yet</div>`
-      }
+        ?g.players.map((p,i)=>`<div class="player-row">
+          <div style="display:flex;align-items:center">
+            <div class="p-init">${initials(p.n)}</div>
+            <div><div class="p-name">${p.n}</div><div class="p-phone">${p.ph}</div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="${p.paid?'badge-paid':'badge-unpaid'}">${p.paid?'PAID':'UNPAID'}</span>
+            ${!p.paid?`<button class="btn-pay" onclick="markPaid(${id},${i})">Mark Paid</button>`:''}
+          </div>
+        </div>`).join('')
+        :`<div style="padding:20px 16px;font-family:var(--BC);font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--muted2)">No players yet</div>`}
     </div>`;
   document.getElementById('ov-admin').classList.add('on');
 }
 
-function approveGame(id) {
-  const g = games.find(x => x.id === id);
-  if (g) g.status = 'open';
-  closeOv('ov-admin');
-  renderAdmin();
-  renderCards();
-  toast('Game approved and live ⚡');
-}
-
-function rejectGame(id) {
-  games = games.filter(x => x.id !== id);
-  closeOv('ov-admin');
-  renderAdmin();
-  toast('Game rejected and removed');
-}
-
-function deleteGame(id) {
-  games = games.filter(x => x.id !== id);
-  closeOv('ov-admin');
-  renderAdmin();
-  renderCards();
-  toast('Game deleted');
-}
-
-function markPaid(gid, pi) {
-  const g = games.find(x => x.id === gid);
-  if (g && g.players[pi]) g.players[pi].paid = true;
-  openAdmin(gid);
-  renderAdmin();
-  toast('Marked as paid ✓');
-}
-
-function closeOv(id) { document.getElementById(id).classList.remove('on'); }
-function bgClose(e, id) { if (e.target === document.getElementById(id)) closeOv(id); }
+function approveGame(id){const g=games.find(x=>x.id===id);if(g)g.status='open';closeOv('ov-admin');renderAdmin();renderCards();toast('Game approved and live ⚡')}
+function rejectGame(id){games=games.filter(x=>x.id!==id);closeOv('ov-admin');renderAdmin();toast('Game rejected and removed')}
+function deleteGame(id){games=games.filter(x=>x.id!==id);closeOv('ov-admin');renderAdmin();renderCards();toast('Game deleted')}
+function markPaid(gid,pi){const g=games.find(x=>x.id===gid);if(g&&g.players[pi])g.players[pi].paid=true;openAdmin(gid);renderAdmin();toast('Marked as paid ✓')}
+function closeOv(id){document.getElementById(id).classList.remove('on')}
+function bgClose(e,id){if(e.target===document.getElementById(id))closeOv(id)}
 
 let toastTimer;
-function toast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('on');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.remove('on'), 3200);
-}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('on');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('on'),3200)}
 
 renderCards();
 </script>
