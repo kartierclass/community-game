@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Match-Box — Community Games</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  :root{
+    --black:#000000;
+    --surface:#0f2018;
+    --surface2:#162b1e;
+    --border:#1e3828;
+    --green:#4ade80;
+    --green-dark:#16a34a;
+    --green-dim:rgba(74,222,128,0.15);
+    --muted:#6b8f78;
+    --text:#e8f5ee;
+    --danger:#ef4444;
+    --yellow:#facc15;
+  }
+  body{background:var(--black);color:var(--text);font-family:'Barlow Condensed',sans-serif;min-height:100vh;}
+
+  /* ── HEADER ── */
+  header{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.5rem;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--black);z-index:100;}
+  .logo{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:0.1em;color:var(--text);}
+  .logo span{color:var(--green);}
+  .header-links{display:flex;gap:0.75rem;align-items:center;}
+  .header-links a{font-family:'Space Mono',monospace;font-size:0.72rem;color:var(--muted);text-decoration:none;border:1px solid var(--border);padding:4px 12px;border-radius:20px;transition:all 0.2s;}
+  .header-links a:hover{color:var(--green);border-color:var(--green-dark);}
+  .header-links a.active{color:var(--green);border-color:var(--green-dark);background:var(--green-dim);}
+
+  /* ── HERO ── */
+  .hero{padding:2.5rem 1.5rem 1.5rem;border-bottom:1px solid var(--border);}
+  .hero-tag{font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--green);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.5rem;}
+  .hero-title{font-family:'Bebas Neue',sans-serif;font-size:3.5rem;line-height:0.95;letter-spacing:0.02em;}
+  .hero-title span{color:var(--green);}
+  .hero-sub{font-size:1rem;color:var(--muted);margin-top:0.75rem;max-width:480px;line-height:1.5;}
+
+  /* ── TABS ── */
+  .tabs{display:flex;border-bottom:1px solid var(--border);padding:0 1.5rem;}
+  .tab{font-family:'Space Mono',monospace;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;padding:1rem 1.25rem;cursor:pointer;color:var(--muted);border-bottom:2px solid transparent;transition:all 0.2s;}
+  .tab.active{color:var(--green);border-bottom-color:var(--green);}
+
+  /* ── MAIN ── */
+  .main{padding:1.5rem;max-width:900px;margin:0 auto;}
+
+  /* ── GAME CARDS ── */
+  .games-grid{display:grid;gap:1rem;}
+  .game-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.25rem;cursor:pointer;transition:border-color 0.2s;}
+  .game-card:hover{border-color:var(--green-dark);}
+  .game-card-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:0.75rem;}
+  .game-sport{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:0.04em;}
+  .game-badge{font-family:'Space Mono',monospace;font-size:0.62rem;padding:3px 10px;border-radius:20px;font-weight:600;}
+  .badge-open{background:rgba(74,222,128,0.15);color:var(--green);border:1px solid var(--green-dark);}
+  .badge-full{background:rgba(250,204,21,0.15);color:var(--yellow);border:1px solid var(--yellow);}
+  .badge-cancelled{background:rgba(239,68,68,0.1);color:var(--danger);border:1px solid var(--danger);}
+  .game-meta{display:flex;flex-wrap:wrap;gap:0.5rem 1.25rem;font-size:0.85rem;color:var(--muted);}
+  .game-meta span{display:flex;align-items:center;gap:0.3rem;}
+  .game-meta strong{color:var(--text);}
+  .game-players{margin-top:0.75rem;}
+  .players-bar{height:4px;background:var(--border);border-radius:2px;margin-top:0.4rem;overflow:hidden;}
+  .players-fill{height:100%;background:var(--green);border-radius:2px;transition:width 0.4s;}
+  .players-label{font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--muted);display:flex;justify-content:space-between;}
+  .game-price{margin-top:0.75rem;font-family:'Space Mono',monospace;font-size:0.78rem;color:var(--green);}
+  .game-ref{font-family:'Space Mono',monospace;font-size:0.62rem;color:var(--border);margin-top:0.4rem;}
+
+  /* ── EMPTY STATE ── */
+  .empty-state{text-align:center;padding:3rem 1rem;color:var(--muted);}
+  .empty-icon{font-size:2.5rem;margin-bottom:0.75rem;}
+  .empty-text{font-size:0.9rem;line-height:1.6;}
+
+  /* ── HOST FORM ── */
+  .form-section{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.5rem;}
+  .form-title{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:0.04em;margin-bottom:1.25rem;padding-bottom:0.75rem;border-bottom:1px solid var(--border);}
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.85rem;}
+  .form-group{display:flex;flex-direction:column;gap:0.4rem;}
+  .form-group.full{grid-column:1/-1;}
+  label{font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;}
+  input,select{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:0.65rem 0.85rem;color:var(--text);font-family:'Barlow Condensed',sans-serif;font-size:0.95rem;width:100%;transition:border-color 0.2s;-webkit-appearance:none;}
+  input:focus,select:focus{outline:none;border-color:var(--green-dark);}
+  input::placeholder{color:var(--muted);}
+  select option{background:var(--surface2);}
+  .form-error{font-family:'Space Mono',monospace;font-size:0.7rem;color:var(--danger);min-height:1rem;}
+  .btn-submit{width:100%;margin-top:1rem;padding:0.85rem;background:var(--green);color:var(--black);border:none;border-radius:8px;font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:0.1em;cursor:pointer;transition:opacity 0.2s;}
+  .btn-submit:hover{opacity:0.9;}
+  .btn-submit:disabled{opacity:0.4;cursor:not-allowed;}
+
+  /* ── JOIN MODAL ── */
+  .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:200;align-items:center;justify-content:center;backdrop-filter:blur(4px);padding:1rem;}
+  .modal-overlay.show{display:flex;}
+  .modal{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.5rem;width:100%;max-width:440px;max-height:90vh;overflow-y:auto;}
+  .modal-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.25rem;}
+  .modal-title{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:0.04em;}
+  .btn-close{background:none;border:none;color:var(--muted);font-size:1.3rem;cursor:pointer;line-height:1;}
+  .modal-game-info{background:var(--surface2);border-radius:8px;padding:1rem;margin-bottom:1.25rem;font-size:0.85rem;}
+  .modal-game-info .row{display:flex;justify-content:space-between;padding:0.25rem 0;}
+  .modal-game-info .row:not(:last-child){border-bottom:1px solid var(--border);}
+  .modal-game-info .key{color:var(--muted);}
+  .modal-join-form{display:flex;flex-direction:column;gap:0.85rem;}
+  .btn-join{width:100%;padding:0.85rem;background:var(--green);color:var(--black);border:none;border-radius:8px;font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:0.1em;cursor:pointer;transition:opacity 0.2s;}
+  .btn-join:disabled{opacity:0.4;cursor:not-allowed;}
+
+  /* ── SUCCESS ── */
+  .success-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:300;align-items:center;justify-content:center;padding:1rem;}
+  .success-overlay.show{display:flex;}
+  .success-box{background:var(--surface);border:1px solid var(--green-dark);border-radius:16px;padding:2rem;width:100%;max-width:400px;text-align:center;}
+  .success-icon{font-size:2.5rem;margin-bottom:1rem;}
+  .success-title{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--green);margin-bottom:0.5rem;}
+  .success-ref{font-family:'Space Mono',monospace;font-size:1rem;color:var(--text);margin:0.75rem 0;}
+  .success-sub{font-size:0.85rem;color:var(--muted);line-height:1.5;margin-bottom:1.25rem;}
+  .btn-done{padding:0.75rem 2rem;background:var(--green);color:var(--black);border:none;border-radius:8px;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:0.08em;cursor:pointer;}
+
+  /* ── TOAST ── */
+  .toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(100px);padding:0.75rem 1.5rem;border-radius:8px;font-size:0.82rem;font-family:'Space Mono',monospace;z-index:400;transition:transform 0.3s;white-space:nowrap;}
+  .toast.show{transform:translateX(-50%) translateY(0);}
+  .toast.success{background:#166534;color:#bbf7d0;border:1px solid #16a34a;}
+  .toast.error{background:#7f1d1d;color:#fecaca;border:1px solid #dc2626;}
+
+  /* ── LOADING ── */
+  .spinner{width:18px;height:18px;border:2px solid var(--border);border-top-color:var(--green);border-radius:50%;animation:spin 0.7s linear infinite;display:inline-block;}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .loading-state{display:flex;align-items:center;justify-content:center;padding:2rem;gap:0.75rem;color:var(--muted);font-size:0.85rem;}
+
+  /* ── MOBILE ── */
+  @media(max-width:540px){
+    .hero-title{font-size:2.5rem;}
+    .form-grid{grid-template-columns:1fr;}
+    .form-group.full{grid-column:1;}
+    .game-meta{gap:0.4rem 1rem;font-size:0.8rem;}
+    .main{padding:1rem;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">MATCH<span>-</span>BOX</div>
+  <div class="header-links">
+    <a href="matchbox-booking.html">⚡ Book a Slot</a>
+    <a href="matchbox-admin.html">Admin</a>
+    <a href="members.html">Members</a>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="hero-tag">⚽ Community Games</div>
+  <div class="hero-title">PLAY<br><span>TOGETHER.</span></div>
+  <div class="hero-sub">Host a game, find players, fill the court. Real-time availability across all Match-Box centres in Mysore.</div>
+</div>
+
+<div class="tabs">
+  <div class="tab active" id="tabJoin" onclick="switchTab('join')">Join a Game</div>
+  <div class="tab" id="tabHost" onclick="switchTab('host')">Host a Game</div>
+</div>
+
+<div class="main">
+
+  <!-- JOIN TAB -->
+  <div id="panelJoin">
+    <div id="gamesList"><div class="loading-state"><span class="spinner"></span> Loading games...</div></div>
+  </div>
+
+  <!-- HOST TAB -->
+  <div id="panelHost" style="display:none;">
+    <div class="form-section">
+      <div class="form-title">Host a Community Game</div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" id="hostName" placeholder="e.g. Aasim">
+        </div>
+        <div class="form-group">
+          <label>Your Phone</label>
+          <input type="tel" id="hostPhone" placeholder="10-digit number">
+        </div>
+        <div class="form-group">
+          <label>Location</label>
+          <select id="hostTurf" onchange="loadHostSports()">
+            <option value="">Select centre...</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Sport</label>
+          <select id="hostSport" onchange="loadHostCourtType()" disabled>
+            <option value="">Select sport...</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Court Type</label>
+          <select id="hostCourtType" onchange="loadHostSlots()" disabled>
+            <option value="">Select court...</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Date</label>
+          <input type="date" id="hostDate" onchange="loadHostSlots()">
+        </div>
+        <div class="form-group full">
+          <label>Time Slot</label>
+          <select id="hostSlot" disabled>
+            <option value="">Select time...</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Max Players</label>
+          <input type="number" id="hostMaxPlayers" placeholder="e.g. 10" min="2" max="30">
+        </div>
+        <div class="form-group">
+          <label>Price Per Player</label>
+          <input type="text" id="hostPrice" placeholder="Auto from slot" readonly style="opacity:0.6;">
+        </div>
+      </div>
+      <div class="form-error" id="hostError"></div>
+      <button class="btn-submit" id="btnHost" onclick="hostGame()">Create Game</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- JOIN MODAL -->
+<div class="modal-overlay" id="joinModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modalTitle">Join Game</div>
+      <button class="btn-close" onclick="closeJoinModal()">✕</button>
+    </div>
+    <div class="modal-game-info" id="modalGameInfo"></div>
+    <div class="modal-join-form">
+      <div class="form-group">
+        <label>Your Name</label>
+        <input type="text" id="joinName" placeholder="e.g. Rahul">
+      </div>
+      <div class="form-group">
+        <label>Your Phone</label>
+        <input type="tel" id="joinPhone" placeholder="10-digit number">
+      </div>
+      <div class="form-error" id="joinError"></div>
+      <button class="btn-join" id="btnJoin" onclick="joinGame()">Join Game</button>
+    </div>
+  </div>
+</div>
+
+<!-- SUCCESS OVERLAY -->
+<div class="success-overlay" id="successOverlay">
+  <div class="success-box">
+    <div class="success-icon" id="successIcon">⚽</div>
+    <div class="success-title" id="successTitle">GAME ON!</div>
+    <div class="success-ref" id="successRef"></div>
+    <div class="success-sub" id="successSub"></div>
+    <button class="btn-done" onclick="closeSuccess()">Done</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+const API = 'https://matchbox-booking-production.up.railway.app';
+let allTurfs = [];
+let selectedGameId = null;
+
+// ── TOAST ────────────────────────────────────────────
+function toast(msg, type='success') {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = `toast ${type} show`;
+  setTimeout(() => el.classList.remove('show'), 3000);
+}
+
+// ── TABS ─────────────────────────────────────────────
+function switchTab(tab) {
+  document.getElementById('tabJoin').classList.toggle('active', tab === 'join');
+  document.getElementById('tabHost').classList.toggle('active', tab === 'host');
+  document.getElementById('panelJoin').style.display = tab === 'join' ? 'block' : 'none';
+  document.getElementById('panelHost').style.display = tab === 'host' ? 'block' : 'none';
+}
+
+// ── SPORT ICONS ──────────────────────────────────────
+function sportIcon(sport) {
+  return sport === 'Football' ? '⚽' : sport === 'Box Cricket' ? '🏏' : sport === 'Pickleball' ? '🏓' : '🎯';
+}
+
+// ── LOAD GAMES ───────────────────────────────────────
+async function loadGames() {
+  const el = document.getElementById('gamesList');
+  el.innerHTML = '<div class="loading-state"><span class="spinner"></span> Loading games...</div>';
+  try {
+    const res = await fetch(`${API}/api/games`);
+    const games = await res.json();
+    if (!games.length) {
+      el.innerHTML = `<div class="empty-state"><div class="empty-icon">🏟️</div><div class="empty-text">No open games right now.<br>Be the first to host one!</div></div>`;
+      return;
+    }
+    el.innerHTML = `<div class="games-grid">${games.map(g => {
+      const pct = Math.round((g.current_players / g.max_players) * 100);
+      const spots = g.max_players - g.current_players;
+      return `<div class="game-card" onclick="openJoinModal('${g.id}')">
+        <div class="game-card-top">
+          <div class="game-sport">${sportIcon(g.sport)} ${g.sport}</div>
+          <span class="game-badge badge-${g.status}">${g.status === 'open' ? `${spots} spot${spots!==1?'s':''} left` : 'FULL'}</span>
+        </div>
+        <div class="game-meta">
+          <span>📍 <strong>${g.location}</strong></span>
+          <span>📅 <strong>${new Date(g.booking_date).toLocaleDateString('en-IN',{day:'numeric',month:'short'})}</strong></span>
+          <span>🕐 <strong>${g.start_time} – ${g.end_time}</strong></span>
+          <span>🏟️ <strong>${g.court_type} Court</strong></span>
+          <span>👤 <strong>${g.host_name}</strong></span>
+        </div>
+        <div class="game-players">
+          <div class="players-label"><span>${g.current_players}/${g.max_players} players</span><span>${pct}% full</span></div>
+          <div class="players-bar"><div class="players-fill" style="width:${pct}%"></div></div>
+        </div>
+        <div class="game-price">₹${parseFloat(g.price_per_player).toLocaleString('en-IN')} per player</div>
+        <div class="game-ref">${g.ref_code}</div>
+      </div>`;
+    }).join('')}</div>`;
+  } catch {
+    el.innerHTML = '<div class="empty-state"><div class="empty-text">Could not load games. Please refresh.</div></div>';
+  }
+}
+
+// ── JOIN MODAL ───────────────────────────────────────
+async function openJoinModal(gameId) {
+  selectedGameId = gameId;
+  document.getElementById('joinError').textContent = '';
+  document.getElementById('joinName').value = '';
+  document.getElementById('joinPhone').value = '';
+
+  try {
+    const res = await fetch(`${API}/api/games/${gameId}`);
+    const g = await res.json();
+    document.getElementById('modalTitle').textContent = `Join — ${g.sport}`;
+    document.getElementById('modalGameInfo').innerHTML = `
+      <div class="row"><span class="key">Location</span><span>${g.location}</span></div>
+      <div class="row"><span class="key">Date</span><span>${new Date(g.booking_date).toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'short'})}</span></div>
+      <div class="row"><span class="key">Time</span><span>${g.start_time} – ${g.end_time}</span></div>
+      <div class="row"><span class="key">Court</span><span>${g.court_type}</span></div>
+      <div class="row"><span class="key">Players</span><span>${g.current_players}/${g.max_players}</span></div>
+      <div class="row"><span class="key">Price</span><span style="color:var(--green);font-family:'Space Mono',monospace;">₹${parseFloat(g.price_per_player).toLocaleString('en-IN')}</span></div>
+      <div class="row"><span class="key">Host</span><span>${g.host_name}</span></div>
+    `;
+    document.getElementById('btnJoin').disabled = g.status !== 'open';
+    document.getElementById('btnJoin').textContent = g.status === 'full' ? 'Game Full' : 'Join Game';
+  } catch {
+    toast('Could not load game details', 'error');
+    return;
+  }
+  document.getElementById('joinModal').classList.add('show');
+}
+
+function closeJoinModal() {
+  document.getElementById('joinModal').classList.remove('show');
+  selectedGameId = null;
+}
+
+async function joinGame() {
+  const name = document.getElementById('joinName').value.trim();
+  const phone = document.getElementById('joinPhone').value.trim();
+  const errEl = document.getElementById('joinError');
+  const btn = document.getElementById('btnJoin');
+
+  if (!name) { errEl.textContent = 'Enter your name'; return; }
+  if (!/^\d{10}$/.test(phone)) { errEl.textContent = 'Enter a valid 10-digit phone number'; return; }
+
+  btn.disabled = true; btn.textContent = '...';
+  try {
+    const res = await fetch(`${API}/api/games/${selectedGameId}/join`, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ name, phone }),
+    });
+    const data = await res.json();
+    if (!res.ok) { errEl.textContent = data.error; btn.disabled=false; btn.textContent='Join Game'; return; }
+
+    closeJoinModal();
+    document.getElementById('successIcon').textContent = '🎉';
+    document.getElementById('successTitle').textContent = 'YOU\'RE IN!';
+    document.getElementById('successRef').textContent = '';
+    document.getElementById('successSub').textContent = `You've joined the game. Show up on time and play hard!`;
+    document.getElementById('successOverlay').classList.add('show');
+    loadGames();
+  } catch {
+    errEl.textContent = 'Could not join. Try again.';
+    btn.disabled=false; btn.textContent='Join Game';
+  }
+}
+
+// ── HOST FORM ────────────────────────────────────────
+async function loadTurfs() {
+  try {
+    const res = await fetch(`${API}/api/turfs`);
+    allTurfs = await res.json();
+    const sel = document.getElementById('hostTurf');
+    allTurfs.forEach(t => {
+      sel.innerHTML += `<option value="${t.id}" data-location="${t.location}">${t.location} — ${t.name}</option>`;
+    });
+  } catch { toast('Could not load centres', 'error'); }
+}
+
+function loadHostSports() {
+  const sportSel = document.getElementById('hostSport');
+  const courtSel = document.getElementById('hostCourtType');
+  const slotSel = document.getElementById('hostSlot');
+  const turfId = document.getElementById('hostTurf').value;
+
+  // Hebbal has Pickleball, Vijayanagar doesn't
+  const turf = allTurfs.find(t => t.id === turfId);
+  sportSel.innerHTML = '<option value="">Select sport...</option>';
+
+  if (!turfId) { sportSel.disabled=true; return; }
+  const sports = turf?.location === 'Hebbal'
+    ? ['Football','Box Cricket','Pickleball']
+    : ['Football','Box Cricket'];
+
+  sports.forEach(s => sportSel.innerHTML += `<option value="${s}">${s}</option>`);
+  sportSel.disabled = false;
+  courtSel.disabled = true; courtSel.innerHTML = '<option value="">Select court...</option>';
+  slotSel.disabled = true; slotSel.innerHTML = '<option value="">Select time...</option>';
+  document.getElementById('hostPrice').value = '';
+}
+
+function loadHostCourtType() {
+  const sport = document.getElementById('hostSport').value;
+  const courtSel = document.getElementById('hostCourtType');
+  courtSel.innerHTML = '<option value="">Select court...</option>';
+
+  if (!sport) { courtSel.disabled=true; return; }
+  const types = sport === 'Pickleball' ? ['Full'] : ['Half','Full'];
+  types.forEach(t => courtSel.innerHTML += `<option value="${t}">${t} Court</option>`);
+  courtSel.disabled = false;
+  document.getElementById('hostSlot').disabled = true;
+  document.getElementById('hostSlot').innerHTML = '<option value="">Select time...</option>';
+}
+
+async function loadHostSlots() {
+  const turfId = document.getElementById('hostTurf').value;
+  const sport = document.getElementById('hostSport').value;
+  const courtType = document.getElementById('hostCourtType').value;
+  const date = document.getElementById('hostDate').value;
+  const slotSel = document.getElementById('hostSlot');
+
+  if (!turfId || !sport || !courtType || !date) { slotSel.disabled=true; return; }
+
+  slotSel.innerHTML = '<option value="">Loading...</option>';
+  slotSel.disabled = true;
+
+  try {
+    const res = await fetch(`${API}/api/slots?turf_id=${turfId}&sport=${encodeURIComponent(sport)}&date=${date}&court_type=${courtType}`);
+    const slots = await res.json();
+    const available = slots.filter(s => s.status === 'available');
+
+    slotSel.innerHTML = '<option value="">Select time...</option>';
+    if (!available.length) {
+      slotSel.innerHTML = '<option value="">No available slots</option>';
+      return;
+    }
+    available.forEach(s => {
+      slotSel.innerHTML += `<option value="${s.id}" data-price="${s.price}">${s.time}</option>`;
+    });
+    slotSel.disabled = false;
+    slotSel.onchange = () => {
+      const opt = slotSel.options[slotSel.selectedIndex];
+      const price = opt.dataset.price;
+      document.getElementById('hostPrice').value = price ? `₹${parseFloat(price).toLocaleString('en-IN')}` : '';
+    };
+  } catch {
+    slotSel.innerHTML = '<option value="">Could not load slots</option>';
+  }
+}
+
+async function hostGame() {
+  const name = document.getElementById('hostName').value.trim();
+  const phone = document.getElementById('hostPhone').value.trim();
+  const turfId = document.getElementById('hostTurf').value;
+  const sport = document.getElementById('hostSport').value;
+  const courtType = document.getElementById('hostCourtType').value;
+  const date = document.getElementById('hostDate').value;
+  const slotSel = document.getElementById('hostSlot');
+  const slotId = slotSel.value;
+  const maxPlayers = parseInt(document.getElementById('hostMaxPlayers').value);
+  const errEl = document.getElementById('hostError');
+  const btn = document.getElementById('btnHost');
+
+  errEl.textContent = '';
+  if (!name) { errEl.textContent = 'Enter your name'; return; }
+  if (!/^\d{10}$/.test(phone)) { errEl.textContent = 'Enter a valid 10-digit phone number'; return; }
+  if (!turfId) { errEl.textContent = 'Select a centre'; return; }
+  if (!sport) { errEl.textContent = 'Select a sport'; return; }
+  if (!courtType) { errEl.textContent = 'Select court type'; return; }
+  if (!date) { errEl.textContent = 'Select a date'; return; }
+  if (!slotId) { errEl.textContent = 'Select a time slot'; return; }
+  if (!maxPlayers || maxPlayers < 2) { errEl.textContent = 'Max players must be at least 2'; return; }
+
+  btn.disabled = true; btn.textContent = 'Creating...';
+
+  try {
+    const res = await fetch(`${API}/api/games`, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ turf_id: turfId, slot_id: slotId, booking_date: date, court_type: courtType, sport, host_name: name, host_phone: phone, max_players: maxPlayers }),
+    });
+    const data = await res.json();
+    if (!res.ok) { errEl.textContent = data.error; btn.disabled=false; btn.textContent='Create Game'; return; }
+
+    document.getElementById('successIcon').textContent = '🏟️';
+    document.getElementById('successTitle').textContent = 'GAME CREATED!';
+    document.getElementById('successRef').textContent = data.game.ref_code;
+    document.getElementById('successSub').textContent = `Your game is live! Share the details and get players to join. To cancel, use your phone number.`;
+    document.getElementById('successOverlay').classList.add('show');
+
+    // Reset form
+    ['hostName','hostPhone','hostDate','hostMaxPlayers'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('hostTurf').value = '';
+    document.getElementById('hostSport').innerHTML = '<option value="">Select sport...</option>';
+    document.getElementById('hostSport').disabled = true;
+    document.getElementById('hostCourtType').innerHTML = '<option value="">Select court...</option>';
+    document.getElementById('hostCourtType').disabled = true;
+    document.getElementById('hostSlot').innerHTML = '<option value="">Select time...</option>';
+    document.getElementById('hostSlot').disabled = true;
+    document.getElementById('hostPrice').value = '';
+    btn.disabled=false; btn.textContent='Create Game';
+    loadGames();
+  } catch {
+    errEl.textContent = 'Could not create game. Try again.';
+    btn.disabled=false; btn.textContent='Create Game';
+  }
+}
+
+function closeSuccess() {
+  document.getElementById('successOverlay').classList.remove('show');
+  switchTab('join');
+}
+
+// ── INIT ─────────────────────────────────────────────
+// Set min date to today
+const today = new Date().toISOString().split('T')[0];
+document.getElementById('hostDate').min = today;
+
+loadTurfs();
+loadGames();
+</script>
+</body>
+</html>
